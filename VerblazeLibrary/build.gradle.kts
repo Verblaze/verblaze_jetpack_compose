@@ -74,7 +74,7 @@ afterEvaluate {
             create<MavenPublication>("release") {
                 from(components["release"])
 
-                groupId    = "com.github.<Verblaze>"
+                groupId    = "com.github.Verblaze"
                 artifactId = "verblaze_jetpack_compose"
             }
         }
