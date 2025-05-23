@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
     id("org.jetbrains.kotlin.plugin.compose")
+    id ("maven-publish")
 }
 
 android {
@@ -65,4 +66,17 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+//To publish-maven properly, these blocks have to be added
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId    = "com.github.<Verblaze>"
+                artifactId = "verblaze_jetpack_compose"
+            }
+        }
+    }
 }

@@ -20,7 +20,7 @@ The implementation you need are below.
 ```kotlin
 //In build.gradle.kts(:app)
 dependencies{
-    implementation("com.github.Verblaze:verblaze_jetpack_compose.v1.0.0") //Dont forget to use latest version
+    implementation("com.github.Verblaze:verblaze_jetpack_compose:v1.0.0") //Dont forget to use latest version
 }
 
 //In settings.gradle.kts

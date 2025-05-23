@@ -86,9 +86,10 @@ internal object DataStoreManager {
         return dataString?.let { Json.decodeFromString(serializer, it) } ?: run {
             Log.e(
                 "getCurrentLanguage",
-                "NullPointerException : currentLanguage is null\nDataStoreManager.getCurrentLanguage()"
+                "IllegalStateException : currentLanguage is empty\nDataStoreManager.getCurrentLanguage()" +
+                        "\nIt can be empty if it is run for first, dont worry immediately"
             )
-            null
+            UserLanguage("", "", "")
         }
     }
 

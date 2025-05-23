@@ -34,7 +34,7 @@ internal class ApiFunctions(
                     If update is needed, saves the latest version and
                     fetch whole supportedLanguages and translations again
                      */
-                    DataStoreManager.saveLastVersion(response.body()?.data?.latestVersion!!)
+                    DataStoreManager.saveLastVersion(response.body()?.data?.latestVersion?:1)
                     setSupportedLanguages(apiKey)
                 }
             } else {
@@ -57,7 +57,7 @@ internal class ApiFunctions(
                     "StatusCode : ${response.body()?.statusCode}\nMessage : ${response.body()?.message}"
                 )
                 DataStoreManager.saveSupportedLanguages(response.body()?.data!!)
-                if (DataStoreManager.getCurrentLanguage() == null) {
+                if (DataStoreManager.getCurrentLanguage()?.code=="") {
                     /*
                     if currentLanguage is null, it means user logs in for first,
                     so I need to set currentLanguage that can be change in the future again
@@ -72,7 +72,7 @@ internal class ApiFunctions(
                 setMultipleTranslations(
                     apiKey,
                     response.body()?.data?.supportedLanguages?.map { it.code }!!,
-                    DataStoreManager.getCurrentLanguage()!!
+                    DataStoreManager.getCurrentLanguage()?: UserLanguage("","","")
                 )
             } else {
                 Log.e(
@@ -109,7 +109,7 @@ internal class ApiFunctions(
                 )
                 DataStoreManager.saveWholeTranslations(response.body()?.data!!)
                 val currentTranslations: List<TranslationFile> =
-                    response.body()?.data?.translations?.get(currentLanguage.code)!!
+                    response.body()?.data?.translations?.get(currentLanguage.code)?:emptyList()
                 DataStoreManager.saveCurrentTranslations(currentTranslations)
             } else {
                 Log.e(
